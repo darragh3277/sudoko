@@ -1,0 +1,15 @@
+.board-wrapper {
+  padding-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 25%;
+}
+
+.game-board {
+  background-color: #1f1f1f;
+  color: #dcdcdc;
+  height: 29rem;
+  flex: 1 0 51%;
+  border-spacing: 0;
+}

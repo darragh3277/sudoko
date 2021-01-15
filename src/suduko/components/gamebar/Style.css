@@ -1,0 +1,6 @@
+.gamebar {
+  margin-top: 2rem;
+  background-color: #1f1f1f;
+  min-height: 6rem;
+  flex: 1 0 50%;
+}
