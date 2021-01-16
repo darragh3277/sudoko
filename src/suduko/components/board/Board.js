@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import Tile from "../tile/Tile";
 import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
 
-const game = [
-  [1, 2, null, 4, 5, 6, 7, 8, 9],
-  [4, 5, 6, 7, 8, 9, 1, 2, 3],
-  [7, 8, 9, 1, 2, 3, 4, 5, 6],
-  [2, 3, 4, 5, 6, 7, 8, 9, 1],
-  [5, 6, 7, 8, 9, 1, 2, 3, 4],
-  [8, 9, 1, 2, 3, 4, 5, 6, 7],
-  [3, 4, 5, 6, 7, 8, 9, 1, 2],
-  [6, 7, 8, 9, 1, 2, 3, 4, 5],
-  [9, 1, 2, 3, 4, 5, 6, 7, 8],
-];
+const BuildBoard = ({ selectedTile, handleClickedTile, game }) => {
+  return (
+    <table className="game-board">
+      <tbody>
+        <BuildRow
+          selectedTile={selectedTile}
+          handleClickedTile={handleClickedTile}
+          game={game}
+        />
+      </tbody>
+    </table>
+  );
+};
 
-const BuildRow = ({ selectedTile, handleSelectedTile }) => {
+const BuildRow = ({ selectedTile, handleClickedTile, game }) => {
   return game.map((row, i) => {
     return (
       <tr key={i}>
@@ -23,14 +25,14 @@ const BuildRow = ({ selectedTile, handleSelectedTile }) => {
           tiles={row}
           iRow={i}
           selectedTile={selectedTile}
-          handleSelectedTile={handleSelectedTile}
+          handleClickedTile={handleClickedTile}
         />
       </tr>
     );
   });
 };
 
-const BuildTiles = ({ tiles, iRow, selectedTile, handleSelectedTile }) => {
+const BuildTiles = ({ tiles, iRow, selectedTile, handleClickedTile }) => {
   return tiles.map((value, i) => {
     return (
       <Tile
@@ -39,35 +41,26 @@ const BuildTiles = ({ tiles, iRow, selectedTile, handleSelectedTile }) => {
         iCol={i}
         value={value}
         selectedTile={selectedTile}
-        handleSelectedTile={handleSelectedTile}
+        handleClickedTile={handleClickedTile}
       />
     );
   });
 };
 
-const BuildBoard = ({ selectedTile, handleSelectedTile }) => {
-  return (
-    <table className="game-board">
-      <tbody>
-        <BuildRow
-          selectedTile={selectedTile}
-          handleSelectedTile={handleSelectedTile}
-        />
-      </tbody>
-    </table>
-  );
-};
-
-export default function Board() {
-  const [selectedTile, setSelectedTile] = useState([null, null]);
-
+export default function Board({
+  handleClickedTile,
+  selectedTile,
+  game,
+  handleMiniBoardClick,
+}) {
   return (
     <div className="board-wrapper">
       <BuildBoard
         selectedTile={selectedTile}
-        handleSelectedTile={setSelectedTile}
+        handleClickedTile={handleClickedTile}
+        game={game}
       />
-      <Gamebar />
+      <Gamebar handleMiniBoardClick={handleMiniBoardClick} />
     </div>
   );
 }

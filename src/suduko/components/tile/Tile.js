@@ -6,7 +6,7 @@ export default function Tile({
   iRow,
   iCol,
   selectedTile,
-  handleSelectedTile,
+  handleClickedTile,
 }) {
   const tileClass =
     selectedTile[0] === iRow && selectedTile[1] === iCol
@@ -16,7 +16,7 @@ export default function Tile({
     <td
       className={tileClass}
       onClick={() => {
-        handleSelectedTile([iRow, iCol]);
+        handleClickedTile([iRow, iCol]);
       }}
     >
       {value}

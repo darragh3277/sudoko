@@ -1,24 +1,32 @@
 import React from "react";
 import "./Style.css";
-export default function MiniBoard() {
+
+const options = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+const Board = ({ handleMiniBoardClick }) =>
+  options.map((rows, i) => {
+    return (
+      <tr key={i}>
+        {rows.map((val, i) => {
+          return (
+            <td key={i} onClick={handleMiniBoardClick}>
+              {val}
+            </td>
+          );
+        })}
+      </tr>
+    );
+  });
+
+export default function MiniBoard({ handleMiniBoardClick }) {
   return (
     <table className="mini-board">
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>5</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>8</td>
-          <td>9</td>
-        </tr>
+        <Board handleMiniBoardClick={handleMiniBoardClick} />
       </tbody>
     </table>
   );

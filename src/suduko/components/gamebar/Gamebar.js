@@ -3,11 +3,11 @@ import Button from "../button/Button";
 import MiniBoard from "../miniboard/MiniBoard";
 import "./Style.css";
 
-export default function Gamebar() {
+export default function Gamebar({ handleMiniBoardClick }) {
   return (
     <div className="gamebar">
       <div className="game-tools">
-        <MiniBoard />
+        <MiniBoard handleMiniBoardClick={handleMiniBoardClick} />
       </div>
       <div className="game-buttons">
         <Button type="btn-primary" size="sm">
