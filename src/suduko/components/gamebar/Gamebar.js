@@ -1,11 +1,16 @@
 import React from "react";
+import Button from "../button/Button";
 import "./Style.css";
 
 export default function Gamebar() {
   return (
     <div className="gamebar">
-      <button>Check</button>
-      <button>New Game</button>
+      <Button type="btn-primary" size="sm">
+        Check
+      </Button>
+      <Button type="btn-secondary" size="sm">
+        New Game
+      </Button>
     </div>
   );
 }

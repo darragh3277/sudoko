@@ -13,3 +13,15 @@
   flex: 1 0 51%;
   border-spacing: 0;
 }
+
+td:nth-child(3),
+td:nth-child(6) {
+  border-right-color: #727272;
+  border-right-width: 2px;
+}
+
+tr:nth-child(3) td,
+tr:nth-child(6) td {
+  border-bottom-color: #727272;
+  border-bottom-width: 2px;
+}
