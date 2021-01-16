@@ -4,7 +4,7 @@ import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
 
 const game = [
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, null, 4, 5, 6, 7, 8, 9],
   [4, 5, 6, 7, 8, 9, 1, 2, 3],
   [7, 8, 9, 1, 2, 3, 4, 5, 6],
   [2, 3, 4, 5, 6, 7, 8, 9, 1],
