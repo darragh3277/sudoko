@@ -4,7 +4,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  margin: 0 25%;
 }
 
 .game-board {
@@ -24,4 +23,22 @@
 .game-board tr:nth-child(6) td {
   border-bottom-color: #727272;
   border-bottom-width: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+  .board-wrapper {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .board-wrapper {
+    margin: 0 25%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .board-wrapper {
+    margin: 0 33%;
+  }
 }

@@ -21,7 +21,6 @@ export default function Suduko() {
   const [game, setGame] = useState(testGame);
 
   const handleMiniBoardClick = (e) => {
-    console.log(e.target);
     updateTile(e.target.innerText);
   };
 
