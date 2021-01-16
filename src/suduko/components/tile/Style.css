@@ -6,6 +6,7 @@
   cursor: pointer;
 }
 
-.tile:hover {
+.tile:hover,
+.selected {
   background-color: #464646;
 }

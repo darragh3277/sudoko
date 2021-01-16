@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Tile from "../tile/Tile";
 import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
@@ -15,36 +15,58 @@ const game = [
   [9, 1, 2, 3, 4, 5, 6, 7, 8],
 ];
 
-const BuildRow = () => {
+const BuildRow = ({ selectedTile, handleSelectedTile }) => {
   return game.map((row, i) => {
     return (
       <tr key={i}>
-        <BuildTiles tiles={row} />
+        <BuildTiles
+          tiles={row}
+          iRow={i}
+          selectedTile={selectedTile}
+          handleSelectedTile={handleSelectedTile}
+        />
       </tr>
     );
   });
 };
 
-const BuildTiles = ({ tiles }) => {
+const BuildTiles = ({ tiles, iRow, selectedTile, handleSelectedTile }) => {
   return tiles.map((value, i) => {
-    return <Tile key={i} value={value} />;
+    return (
+      <Tile
+        key={i}
+        iRow={iRow}
+        iCol={i}
+        value={value}
+        selectedTile={selectedTile}
+        handleSelectedTile={handleSelectedTile}
+      />
+    );
   });
 };
 
-const BuildBoard = () => {
+const BuildBoard = ({ selectedTile, handleSelectedTile }) => {
   return (
     <table className="game-board">
       <tbody>
-        <BuildRow />
+        <BuildRow
+          selectedTile={selectedTile}
+          handleSelectedTile={handleSelectedTile}
+        />
       </tbody>
     </table>
   );
 };
 
 export default function Board() {
+  const [selectedTile, setSelectedTile] = useState([null, null]);
+
   return (
     <div className="board-wrapper">
-      <BuildBoard />
+      <BuildBoard
+        selectedTile={selectedTile}
+        handleSelectedTile={setSelectedTile}
+      />
       <Gamebar />
     </div>
   );
