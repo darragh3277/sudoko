@@ -93,6 +93,7 @@ export default function Sudoko() {
         handleNewGame={handleNewGame}
         handleReset={handleReset}
         gameState={gameState}
+        puzzle={puzzle}
       />
     </div>
   );

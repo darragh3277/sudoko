@@ -20,3 +20,6 @@
 .tile.warning {
   color: red;
 }
+.tile.puzzle {
+  font-weight: 400;
+}

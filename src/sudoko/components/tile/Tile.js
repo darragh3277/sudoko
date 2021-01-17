@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import "./Style.css";
 
@@ -67,12 +68,16 @@ const hasConflicts = (value, iRow, iCol, gameState) => {
   if (hasRowConflict(value, iRow, gameState)) return true;
   if (hasColConflict(value, iCol, gameState)) return true;
   if (hasGridConflict(value, iRow, iCol, gameState)) return true;
-  //find duplicates
+};
+
+const isPuzzleTile = (iRow, iCol, puzzle) => {
+  if (puzzle[iRow][iCol] !== 0) return true;
 };
 
 //TODO consider moving selected row, col and grid into state so calculation not done excessively
-const tileStyle = (iRow, iCol, selectedTile, gameState, value) => {
+const tileStyle = (iRow, iCol, selectedTile, gameState, value, puzzle) => {
   let tileClass = "tile";
+  if (isPuzzleTile(iRow, iCol, puzzle)) tileClass += " puzzle";
   if (hasConflicts(value, iRow, iCol, gameState)) tileClass += " warning";
   if (!selectedTile) return tileClass;
   if (selectedTile[0] === iRow && selectedTile[1] === iCol) {
@@ -92,8 +97,16 @@ export default function Tile({
   selectedTile,
   handleClickedTile,
   gameState,
+  puzzle,
 }) {
-  const tileClass = tileStyle(iRow, iCol, selectedTile, gameState, value);
+  const tileClass = tileStyle(
+    iRow,
+    iCol,
+    selectedTile,
+    gameState,
+    value,
+    puzzle
+  );
   value = value === 0 ? "" : value;
   return (
     <td

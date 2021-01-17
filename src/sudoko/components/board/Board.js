@@ -3,7 +3,7 @@ import Tile from "../tile/Tile";
 import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
 
-const BuildBoard = ({ selectedTile, handleClickedTile, gameState }) => {
+const BuildBoard = ({ selectedTile, handleClickedTile, gameState, puzzle }) => {
   return (
     <table className="game-board">
       <tbody>
@@ -11,13 +11,14 @@ const BuildBoard = ({ selectedTile, handleClickedTile, gameState }) => {
           selectedTile={selectedTile}
           handleClickedTile={handleClickedTile}
           gameState={gameState}
+          puzzle={puzzle}
         />
       </tbody>
     </table>
   );
 };
 
-const BuildRow = ({ selectedTile, handleClickedTile, gameState }) => {
+const BuildRow = ({ selectedTile, handleClickedTile, gameState, puzzle }) => {
   return gameState.map((row, i) => {
     return (
       <tr key={i}>
@@ -27,6 +28,7 @@ const BuildRow = ({ selectedTile, handleClickedTile, gameState }) => {
           selectedTile={selectedTile}
           handleClickedTile={handleClickedTile}
           gameState={gameState}
+          puzzle={puzzle}
         />
       </tr>
     );
@@ -39,6 +41,7 @@ const BuildTiles = ({
   selectedTile,
   handleClickedTile,
   gameState,
+  puzzle,
 }) => {
   return tiles.map((value, i) => {
     return (
@@ -50,6 +53,7 @@ const BuildTiles = ({
         selectedTile={selectedTile}
         handleClickedTile={handleClickedTile}
         gameState={gameState}
+        puzzle={puzzle}
       />
     );
   });
@@ -62,6 +66,7 @@ export default function Board({
   handleMiniBoardClick,
   handleNewGame,
   handleReset,
+  puzzle,
 }) {
   return (
     <div className="board-wrapper">
@@ -69,6 +74,7 @@ export default function Board({
         selectedTile={selectedTile}
         handleClickedTile={handleClickedTile}
         gameState={gameState}
+        puzzle={puzzle}
       />
       <Gamebar
         handleMiniBoardClick={handleMiniBoardClick}
