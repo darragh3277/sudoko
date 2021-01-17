@@ -2,9 +2,9 @@ import React from "react";
 import "./Style.css";
 
 const options = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
+  [1, 2, 3, null],
+  [4, 5, 6, "x"],
+  [7, 8, 9, null],
 ];
 
 const Board = ({ handleMiniBoardClick }) =>

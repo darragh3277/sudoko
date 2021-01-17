@@ -14,3 +14,12 @@
   cursor: pointer;
   background-color: #464646;
 }
+
+.mini-board tr:nth-child(1) td:nth-child(4) {
+  border-top: none;
+  border-right: none;
+}
+.mini-board tr:nth-child(3) td:nth-child(4) {
+  border-bottom: none;
+  border-right: none;
+}

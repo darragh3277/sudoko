@@ -39,7 +39,9 @@ export default function Sudoko() {
   };
 
   const handleMiniBoardClick = (e) => {
-    updateTile(parseInt(e.target.innerText));
+    let val = e.target.innerText;
+    if (val === "x") val = 0;
+    updateTile(parseInt(val));
   };
 
   const handleKeyUp = ({ key, keyCode }) => {
