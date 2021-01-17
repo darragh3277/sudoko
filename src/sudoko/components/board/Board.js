@@ -3,9 +3,16 @@ import Tile from "../tile/Tile";
 import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
 
-const BuildBoard = ({ selectedTile, handleClickedTile, gameState, puzzle }) => {
+const BuildBoard = ({
+  selectedTile,
+  handleClickedTile,
+  gameState,
+  puzzle,
+  gameComplete,
+}) => {
+  const boardStyle = gameComplete ? "game-board complete" : "game-board";
   return (
-    <table className="game-board">
+    <table className={boardStyle}>
       <tbody>
         <BuildRow
           selectedTile={selectedTile}
@@ -67,6 +74,7 @@ export default function Board({
   handleNewGame,
   handleReset,
   puzzle,
+  gameComplete,
 }) {
   return (
     <div className="board-wrapper">
@@ -75,6 +83,7 @@ export default function Board({
         handleClickedTile={handleClickedTile}
         gameState={gameState}
         puzzle={puzzle}
+        gameComplete={gameComplete}
       />
       <Gamebar
         handleMiniBoardClick={handleMiniBoardClick}

@@ -25,6 +25,17 @@
   border-bottom-width: 2px;
 }
 
+.game-board.complete td:nth-child(3),
+.game-board.complete td:nth-child(6) {
+  transition: border 500ms ease-out;
+  border-right-color: #71c844;
+}
+.game-board.complete tr:nth-child(3) td,
+.game-board.complete tr:nth-child(6) td {
+  border-bottom-color: #71c844;
+  transition: border 500ms ease-out;
+}
+
 @media only screen and (max-width: 600px) {
   .board-wrapper {
     margin: 0;

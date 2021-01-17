@@ -4,54 +4,36 @@ import Board from "./components/board/Board";
 import "./Reset.css";
 import "./Style.css";
 
-const puzzle = [
-  [1, 2, 0, 4, 5, 6, 7, 8, 9],
-  [4, 5, 6, 7, 8, 9, 1, 2, 3],
-  [7, 8, 9, 1, 2, 3, 4, 5, 6],
-  [2, 3, 4, 5, 6, 7, 8, 9, 1],
-  [5, 6, 7, 8, 9, 1, 2, 3, 4],
-  [8, 9, 1, 2, 3, 4, 5, 6, 7],
-  [3, 4, 5, 6, 7, 8, 9, 1, 2],
-  [6, 7, 8, 9, 1, 2, 3, 4, 5],
-  [9, 1, 2, 3, 4, 5, 6, 7, 8],
-];
-
-let gameSet;
+let puzzle = null;
 
 export default function Sudoko() {
   const [selectedTile, setSelectedTile] = useState();
-  const [gameState, setGameState] = useState([...puzzle]);
-  const [gameIndex, setGameIndex] = useState(
-    Math.floor(Math.random() * (100000 - 1) + 1)
-  );
+  const [gameState, setGameState] = useState();
+  const [gameComplete, setGameComplete] = useState(false);
 
-  const loadGame = () => {
-    fetch("games.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        return response.json();
+  const loadGame = (random) => {
+    fetch("games.json")
+      .then((res) => {
+        return res.json();
       })
-      .then(function (myJson) {
-        gameSet = myJson;
+      .then((games) => {
+        puzzle = games[random];
+        setGameState([...puzzle]);
       });
   };
 
   useEffect(() => {
-    loadGame();
-  });
+    const random = Math.floor(Math.random() * (100000 - 1) + 1);
+    loadGame(random);
+  }, []);
 
   const handleNewGame = () => {
     const random = Math.floor(Math.random() * (100000 - 1) + 1);
-    setGameIndex(random);
-    console.log(gameSet[random]);
-    console.log(gameIndex);
+    loadGame(random);
   };
 
   const handleReset = () => {
+    setGameComplete(false);
     setGameState([...puzzle]);
   };
 
@@ -72,29 +54,44 @@ export default function Sudoko() {
     return true;
   };
 
+  const checkComplete = () => {
+    let complete = true;
+    gameState.forEach((row) => {
+      row.forEach((value) => {
+        if (value === 0) complete = false;
+      });
+    });
+    setGameComplete(complete);
+  };
+
   const updateTile = (val) => {
     //tile must be selected
-    if (selectedTile[0] === null || selectedTile[1] === null) return;
+    if (!selectedTile || selectedTile[0] === null || selectedTile[1] === null)
+      return;
     if (!isUpdatableTile()) return;
+    if (gameComplete) return;
     const newGameState = [...gameState];
     const newRow = [...newGameState[selectedTile[0]]];
     newRow[selectedTile[1]] = val;
     newGameState[selectedTile[0]] = newRow;
     setGameState(newGameState);
+    checkComplete();
   };
-
   return (
     <div className="main-wrapper" tabIndex={-1} onKeyUp={handleKeyUp}>
       <Header />
-      <Board
-        selectedTile={selectedTile}
-        handleClickedTile={setSelectedTile}
-        handleMiniBoardClick={handleMiniBoardClick}
-        handleNewGame={handleNewGame}
-        handleReset={handleReset}
-        gameState={gameState}
-        puzzle={puzzle}
-      />
+      {puzzle && (
+        <Board
+          selectedTile={selectedTile}
+          handleClickedTile={setSelectedTile}
+          handleMiniBoardClick={handleMiniBoardClick}
+          handleNewGame={handleNewGame}
+          handleReset={handleReset}
+          gameState={gameState}
+          puzzle={puzzle}
+          gameComplete={gameComplete}
+        />
+      )}
     </div>
   );
 }
