@@ -3,10 +3,18 @@ import Button from "../button/Button";
 import MiniBoard from "../miniboard/MiniBoard";
 import "./Style.css";
 
+const displayGameTimer = (gameTimer) => {
+  const mins = Math.floor(gameTimer / 60);
+  let secs = gameTimer % 60;
+  if (secs < 10) secs = "0" + secs;
+  return mins + ":" + secs;
+};
+
 export default function Gamebar({
   handleMiniBoardClick,
   handleNewGame,
   handleReset,
+  gameTimer,
 }) {
   return (
     <div className="gamebar">
@@ -23,6 +31,7 @@ export default function Gamebar({
         <Button type="btn-secondary" size="sm" handleClick={handleReset}>
           Reset
         </Button>
+        <div className="game-timer">Time: {displayGameTimer(gameTimer)}</div>
       </div>
     </div>
   );

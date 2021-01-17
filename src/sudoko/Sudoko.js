@@ -10,6 +10,15 @@ export default function Sudoko() {
   const [selectedTile, setSelectedTile] = useState();
   const [gameState, setGameState] = useState();
   const [gameComplete, setGameComplete] = useState(false);
+  const [gameTimer, setGameTimer] = useState(0);
+
+  let timer;
+
+  const startTimer = () => {
+    timer = setInterval(() => {
+      setGameTimer((gameTimer) => gameTimer + 1);
+    }, 1000);
+  };
 
   const loadGame = (random) => {
     fetch("games.json")
@@ -25,15 +34,20 @@ export default function Sudoko() {
   useEffect(() => {
     const random = Math.floor(Math.random() * (100000 - 1) + 1);
     loadGame(random);
+    startTimer();
   }, []);
 
   const handleNewGame = () => {
     const random = Math.floor(Math.random() * (100000 - 1) + 1);
     setGameComplete(false);
+    clearInterval(timer);
+    setGameTimer(0);
     loadGame(random);
+    startTimer();
   };
 
   const handleReset = () => {
+    setGameTimer(0);
     setGameComplete(false);
     setGameState([...puzzle]);
   };
@@ -93,6 +107,7 @@ export default function Sudoko() {
           gameState={gameState}
           puzzle={puzzle}
           gameComplete={gameComplete}
+          gameTimer={gameTimer}
         />
       )}
     </div>

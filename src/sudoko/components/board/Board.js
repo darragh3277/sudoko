@@ -75,6 +75,7 @@ export default function Board({
   handleReset,
   puzzle,
   gameComplete,
+  gameTimer,
 }) {
   return (
     <div className="board-wrapper">
@@ -89,6 +90,7 @@ export default function Board({
         handleMiniBoardClick={handleMiniBoardClick}
         handleNewGame={handleNewGame}
         handleReset={handleReset}
+        gameTimer={gameTimer}
       />
     </div>
   );

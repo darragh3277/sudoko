@@ -16,3 +16,9 @@
   display: flex;
   flex-direction: column;
 }
+
+.game-timer {
+  color: #dcdcdc;
+  align-self: center;
+  margin-top: auto;
+}
