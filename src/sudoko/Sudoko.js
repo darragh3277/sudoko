@@ -25,23 +25,23 @@ export default function Sudoko() {
     Math.floor(Math.random() * (100000 - 1) + 1)
   );
 
-  // const loadGame = () => {
-  //   fetch("games.json", {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then(function (response) {
-  //       return response.json();
-  //     })
-  //     .then(function (myJson) {
-  //       gameSet = myJson;
-  //     });
-  // };
+  const loadGame = () => {
+    fetch("games.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        gameSet = myJson;
+      });
+  };
 
   useEffect(() => {
-    // loadGame();
+    loadGame();
   });
 
   const handleNewGame = () => {
