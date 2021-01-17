@@ -1,8 +1,8 @@
-import Suduko from "./suduko/Suduko";
+import Sudoko from "./sudoko/Sudoko";
 import "./App.css";
 
 function App() {
-  return <Suduko />;
+  return <Sudoko />;
 }
 
 export default App;
