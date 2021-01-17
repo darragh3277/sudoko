@@ -29,6 +29,7 @@ export default function Sudoko() {
 
   const handleNewGame = () => {
     const random = Math.floor(Math.random() * (100000 - 1) + 1);
+    setGameComplete(false);
     loadGame(random);
   };
 
