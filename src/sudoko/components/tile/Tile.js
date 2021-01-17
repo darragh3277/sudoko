@@ -51,7 +51,17 @@ const hasColConflict = (value, iCol, gameState) => {
   if (colInstances.length > 1) return true;
 };
 
-const hasGridConflict = (value, iRow, iCol, gameState) => {};
+const hasGridConflict = (value, iRow, iCol, gameState) => {
+  const gridBoundary = getGridBoundary([iRow, iCol]);
+  let gridInstances = 0;
+  for (let i = gridBoundary[0][0]; i <= gridBoundary[0][1]; i++) {
+    let row = gameState[i];
+    for (let j = gridBoundary[1][0]; j <= gridBoundary[1][1]; j++) {
+      if (row[j] === value) gridInstances++;
+    }
+  }
+  if (gridInstances > 1) return true;
+};
 
 const hasConflicts = (value, iRow, iCol, gameState) => {
   if (hasRowConflict(value, iRow, gameState)) return true;
