@@ -36,9 +36,34 @@ const isGridMember = (iRow, iCol, selectedTile) => {
   return false;
 };
 
+const hasRowConflict = (value, iRow, gameState) => {
+  const row = gameState[iRow];
+  const rowInstances = row.filter((val) => {
+    return val === value;
+  });
+  if (rowInstances.length > 1) return true;
+};
+
+const hasColConflict = (value, iCol, gameState) => {
+  const colInstances = gameState.filter((row) => {
+    return row[iCol] === value;
+  });
+  if (colInstances.length > 1) return true;
+};
+
+const hasGridConflict = (value, iRow, iCol, gameState) => {};
+
+const hasConflicts = (value, iRow, iCol, gameState) => {
+  if (hasRowConflict(value, iRow, gameState)) return true;
+  if (hasColConflict(value, iCol, gameState)) return true;
+  if (hasGridConflict(value, iRow, iCol, gameState)) return true;
+  //find duplicates
+};
+
 //TODO consider moving selected row, col and grid into state so calculation not done excessively
-const tileStyle = (iRow, iCol, selectedTile) => {
+const tileStyle = (iRow, iCol, selectedTile, gameState, value) => {
   let tileClass = "tile";
+  if (hasConflicts(value, iRow, iCol, gameState)) tileClass += " warning";
   if (!selectedTile) return tileClass;
   if (selectedTile[0] === iRow && selectedTile[1] === iCol) {
     tileClass += " selected";
@@ -56,8 +81,9 @@ export default function Tile({
   iCol,
   selectedTile,
   handleClickedTile,
+  gameState,
 }) {
-  const tileClass = tileStyle(iRow, iCol, selectedTile);
+  const tileClass = tileStyle(iRow, iCol, selectedTile, gameState, value);
   value = value === 0 ? "" : value;
   return (
     <td

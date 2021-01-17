@@ -3,22 +3,22 @@ import Tile from "../tile/Tile";
 import Gamebar from "../gamebar/Gamebar";
 import "./Style.css";
 
-const BuildBoard = ({ selectedTile, handleClickedTile, game }) => {
+const BuildBoard = ({ selectedTile, handleClickedTile, gameState }) => {
   return (
     <table className="game-board">
       <tbody>
         <BuildRow
           selectedTile={selectedTile}
           handleClickedTile={handleClickedTile}
-          game={game}
+          gameState={gameState}
         />
       </tbody>
     </table>
   );
 };
 
-const BuildRow = ({ selectedTile, handleClickedTile, game }) => {
-  return game.map((row, i) => {
+const BuildRow = ({ selectedTile, handleClickedTile, gameState }) => {
+  return gameState.map((row, i) => {
     return (
       <tr key={i}>
         <BuildTiles
@@ -26,13 +26,20 @@ const BuildRow = ({ selectedTile, handleClickedTile, game }) => {
           iRow={i}
           selectedTile={selectedTile}
           handleClickedTile={handleClickedTile}
+          gameState={gameState}
         />
       </tr>
     );
   });
 };
 
-const BuildTiles = ({ tiles, iRow, selectedTile, handleClickedTile }) => {
+const BuildTiles = ({
+  tiles,
+  iRow,
+  selectedTile,
+  handleClickedTile,
+  gameState,
+}) => {
   return tiles.map((value, i) => {
     return (
       <Tile
@@ -42,6 +49,7 @@ const BuildTiles = ({ tiles, iRow, selectedTile, handleClickedTile }) => {
         value={value}
         selectedTile={selectedTile}
         handleClickedTile={handleClickedTile}
+        gameState={gameState}
       />
     );
   });
@@ -50,7 +58,7 @@ const BuildTiles = ({ tiles, iRow, selectedTile, handleClickedTile }) => {
 export default function Board({
   handleClickedTile,
   selectedTile,
-  game,
+  gameState,
   handleMiniBoardClick,
   handleNewGame,
 }) {
@@ -59,7 +67,7 @@ export default function Board({
       <BuildBoard
         selectedTile={selectedTile}
         handleClickedTile={handleClickedTile}
-        game={game}
+        gameState={gameState}
       />
       <Gamebar
         handleMiniBoardClick={handleMiniBoardClick}

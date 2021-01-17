@@ -4,7 +4,7 @@ import Board from "./components/board/Board";
 import "./Reset.css";
 import "./Style.css";
 
-const selectedGame = [
+const puzzle = [
   [1, 2, 0, 4, 5, 6, 7, 8, 9],
   [4, 5, 6, 7, 8, 9, 1, 2, 3],
   [7, 8, 9, 1, 2, 3, 4, 5, 6],
@@ -20,7 +20,7 @@ let gameSet;
 
 export default function Sudoko() {
   const [selectedTile, setSelectedTile] = useState();
-  const [game, setGame] = useState([...selectedGame]);
+  const [gameState, setGameState] = useState([...puzzle]);
   const [gameIndex, setGameIndex] = useState(
     Math.floor(Math.random() * (100000 - 1) + 1)
   );
@@ -52,7 +52,7 @@ export default function Sudoko() {
   };
 
   const handleMiniBoardClick = (e) => {
-    updateTile(e.target.innerText);
+    updateTile(parseInt(e.target.innerText));
   };
 
   const handleKeyUp = ({ key, keyCode }) => {
@@ -63,14 +63,20 @@ export default function Sudoko() {
     updateTile(parseInt(key));
   };
 
+  const isUpdatableTile = () => {
+    if (puzzle[selectedTile[0]][selectedTile[1]] !== 0) return false;
+    return true;
+  };
+
   const updateTile = (val) => {
     //tile must be selected
     if (selectedTile[0] === null || selectedTile[1] === null) return;
-    const newGame = [...game];
-    const newRow = [...newGame[selectedTile[0]]];
+    if (!isUpdatableTile()) return;
+    const newGameState = [...gameState];
+    const newRow = [...newGameState[selectedTile[0]]];
     newRow[selectedTile[1]] = val;
-    newGame[selectedTile[0]] = newRow;
-    setGame(newGame);
+    newGameState[selectedTile[0]] = newRow;
+    setGameState(newGameState);
   };
 
   return (
@@ -81,7 +87,7 @@ export default function Sudoko() {
         handleClickedTile={setSelectedTile}
         handleMiniBoardClick={handleMiniBoardClick}
         handleNewGame={handleNewGame}
-        game={game}
+        gameState={gameState}
       />
     </div>
   );
