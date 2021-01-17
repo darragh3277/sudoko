@@ -51,6 +51,10 @@ export default function Sudoko() {
     console.log(gameIndex);
   };
 
+  const handleReset = () => {
+    setGameState([...puzzle]);
+  };
+
   const handleMiniBoardClick = (e) => {
     updateTile(parseInt(e.target.innerText));
   };
@@ -87,6 +91,7 @@ export default function Sudoko() {
         handleClickedTile={setSelectedTile}
         handleMiniBoardClick={handleMiniBoardClick}
         handleNewGame={handleNewGame}
+        handleReset={handleReset}
         gameState={gameState}
       />
     </div>
