@@ -12,6 +12,7 @@ export default function Tile({
     selectedTile[0] === iRow && selectedTile[1] === iCol
       ? "tile selected"
       : "tile";
+  value = value === 0 ? "" : value;
   return (
     <td
       className={tileClass}

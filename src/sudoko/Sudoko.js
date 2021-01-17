@@ -5,7 +5,7 @@ import "./Reset.css";
 import "./Style.css";
 
 const testGame = [
-  [1, 2, null, 4, 5, 6, 7, 8, 9],
+  [1, 2, 0, 4, 5, 6, 7, 8, 9],
   [4, 5, 6, 7, 8, 9, 1, 2, 3],
   [7, 8, 9, 1, 2, 3, 4, 5, 6],
   [2, 3, 4, 5, 6, 7, 8, 9, 1],
@@ -25,45 +25,47 @@ export default function Sudoko() {
     Math.floor(Math.random() * (100000 - 1) + 1)
   );
 
-  const loadGame = () => {
-    fetch("games.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (myJson) {
-        gameSet = myJson;
-      });
-  };
+  // const loadGame = () => {
+  //   fetch("games.json", {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then(function (response) {
+  //       return response.json();
+  //     })
+  //     .then(function (myJson) {
+  //       gameSet = myJson;
+  //     });
+  // };
 
   useEffect(() => {
-    loadGame();
+    // loadGame();
   });
 
   const handleNewGame = () => {
     const random = Math.floor(Math.random() * (100000 - 1) + 1);
     setGameIndex(random);
     console.log(gameSet[random]);
+    console.log(gameIndex);
   };
 
   const handleMiniBoardClick = (e) => {
     updateTile(e.target.innerText);
   };
 
-  const handleKeyUp = ({ key }) => {
-    updateTile(key);
+  const handleKeyUp = ({ key, keyCode }) => {
+    //if button pressed is delete or backspace set = 0
+    if (keyCode === 8 || keyCode === 46) key = 0;
+    //only numeric values allowed
+    if (isNaN(key)) return;
+    updateTile(parseInt(key));
   };
 
   const updateTile = (val) => {
     //tile must be selected
     if (selectedTile[0] === null || selectedTile[1] === null) return;
-    //must be between 1 - 9. 0 Clears
-    if (!(val >= 0 && val <= 9)) return;
-    if (parseInt(val) === 0) val = null;
     const newGame = [...game];
     const newRow = [...newGame[selectedTile[0]]];
     newRow[selectedTile[1]] = val;
