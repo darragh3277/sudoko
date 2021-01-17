@@ -1,21 +1,7 @@
 import React from "react";
 import "./Style.css";
 
-const getSelectedGridBox = (selectedTile) => {
-  let selectedGrid = [0, 0];
-  if (selectedTile[0] >= 3 && selectedTile[0] <= 6) {
-    selectedGrid[1] = 1;
-  } else if (selectedTile[0] > 6) {
-    selectedGrid[1] = 2;
-  }
-  if (selectedTile[1] >= 3 && selectedTile[1] <= 6) {
-    selectedGrid[0] = 1;
-  } else if (selectedTile[1] > 6) {
-    selectedGrid[0] = 2;
-  }
-  return selectedGrid;
-};
-
+//get the boundary of the selected tiles grid
 const getGridBoundary = (selectedTile) => {
   const row = selectedTile[0];
   const col = selectedTile[1];
@@ -34,6 +20,7 @@ const getGridBoundary = (selectedTile) => {
   return [rowBoundary, colBoundary];
 };
 
+//check if tile is in same grid as selected tile
 const isGridMember = (iRow, iCol, selectedTile) => {
   const gridBoundary = getGridBoundary(selectedTile);
   const rowBoundary = gridBoundary[0];
@@ -49,8 +36,10 @@ const isGridMember = (iRow, iCol, selectedTile) => {
   return false;
 };
 
+//TODO consider moving selected row, col and grid into state so calculation not done excessively
 const tileStyle = (iRow, iCol, selectedTile) => {
   let tileClass = "tile";
+  if (!selectedTile) return tileClass;
   if (selectedTile[0] === iRow && selectedTile[1] === iCol) {
     tileClass += " selected";
   } else if (selectedTile[0] === iRow || selectedTile[1] === iCol) {
@@ -68,9 +57,7 @@ export default function Tile({
   selectedTile,
   handleClickedTile,
 }) {
-  getGridBoundary(selectedTile);
   const tileClass = tileStyle(iRow, iCol, selectedTile);
-  getSelectedGridBox(selectedTile);
   value = value === 0 ? "" : value;
   return (
     <td

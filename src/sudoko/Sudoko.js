@@ -4,7 +4,7 @@ import Board from "./components/board/Board";
 import "./Reset.css";
 import "./Style.css";
 
-const testGame = [
+const selectedGame = [
   [1, 2, 0, 4, 5, 6, 7, 8, 9],
   [4, 5, 6, 7, 8, 9, 1, 2, 3],
   [7, 8, 9, 1, 2, 3, 4, 5, 6],
@@ -19,8 +19,8 @@ const testGame = [
 let gameSet;
 
 export default function Sudoko() {
-  const [selectedTile, setSelectedTile] = useState([null, null]);
-  const [game, setGame] = useState(testGame);
+  const [selectedTile, setSelectedTile] = useState();
+  const [game, setGame] = useState([...selectedGame]);
   const [gameIndex, setGameIndex] = useState(
     Math.floor(Math.random() * (100000 - 1) + 1)
   );
