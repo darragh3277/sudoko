@@ -18,6 +18,9 @@ export default function Gamebar({
           New Game
         </Button>
         <Button type="btn-secondary" size="sm" handleClick={handleReset}>
+          Solve
+        </Button>
+        <Button type="btn-secondary" size="sm" handleClick={handleReset}>
           Reset
         </Button>
       </div>
