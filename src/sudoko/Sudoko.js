@@ -6,6 +6,18 @@ import "./Style.css";
 
 let puzzle = null;
 
+let testPuzzle = [
+  [7, 8, 6, 2, 1, 3, 4, 5, 9],
+  [5, 9, 4, 6, 8, 7, 3, 2, 1],
+  [1, 3, 2, 9, 5, 4, 8, 6, 7],
+  [3, 4, 7, 8, 2, 9, 5, 1, 6],
+  [8, 5, 9, 4, 6, 1, 7, 3, 2],
+  [2, 6, 1, 3, 7, 5, 9, 4, 8],
+  [4, 2, 3, 1, 9, 8, 6, 7, 5],
+  [6, 7, 8, 5, 4, 2, 1, 9, 3],
+  [9, 1, 5, 7, 3, 0, 2, 8, 0], //6 & 4
+];
+
 export default function Sudoko() {
   const [selectedTile, setSelectedTile] = useState();
   const [gameState, setGameState] = useState();
@@ -18,6 +30,7 @@ export default function Sudoko() {
         return res.json();
       })
       .then((games) => {
+        // puzzle = testPuzzle; //for test
         puzzle = games[random];
         setGameState([...puzzle]);
         setGameTimer(0);
@@ -63,13 +76,16 @@ export default function Sudoko() {
     return true;
   };
 
-  const checkComplete = () => {
+  const checkComplete = (gameState) => {
     let complete = true;
+    //check no values left
     gameState.forEach((row) => {
       row.forEach((value) => {
         if (value === 0) complete = false;
       });
     });
+    //TODO move tile conflict checks up to here
+    //check no conflicts
     setGameComplete(complete);
   };
 
@@ -84,7 +100,7 @@ export default function Sudoko() {
     newRow[selectedTile[1]] = val;
     newGameState[selectedTile[0]] = newRow;
     setGameState(newGameState);
-    checkComplete();
+    checkComplete(newGameState);
   };
   return (
     <div className="main-wrapper" tabIndex={-1} onKeyUp={handleKeyUp}>
